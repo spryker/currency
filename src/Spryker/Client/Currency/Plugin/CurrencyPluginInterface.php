@@ -5,20 +5,15 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace Spryker\Zed\Currency\Business;
+namespace Spryker\Client\Currency\Plugin;
 
 /**
- * @method \Spryker\Zed\Currency\Business\CurrencyBusinessFactory getFactory()
+ * @method \Spryker\Client\Currency\CurrencyFactory getFactory()
  */
-interface CurrencyFacadeInterface
+interface CurrencyPluginInterface
 {
 
     /**
-     * Specification:
-     * - Returns CurrencyTransfer object for given ISO code
-     *
-     * @api
-     *
      * @param string $isoCode
      *
      * @return \Generated\Shared\Transfer\CurrencyTransfer
@@ -26,11 +21,6 @@ interface CurrencyFacadeInterface
     public function fromIsoCode($isoCode);
 
     /**
-     * Specification:
-     * - Returns CurrencyTransfer object for current ISO code
-     *
-     * @api
-     *
      * @return \Generated\Shared\Transfer\CurrencyTransfer
      */
     public function getCurrent();
