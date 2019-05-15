@@ -7,7 +7,9 @@
 
 namespace Spryker\Zed\Currency\Dependency\Facade;
 
-class CurrencyToStoreBridge implements CurrencyToStoreInterface
+use Generated\Shared\Transfer\StoreTransfer;
+
+class CurrencyToStoreFacadeFacadeBridge implements CurrencyToStoreFacadeInterface
 {
     /**
      * @var \Spryker\Zed\Store\Business\StoreFacadeInterface
@@ -41,10 +43,10 @@ class CurrencyToStoreBridge implements CurrencyToStoreInterface
     /**
      * @param string $name
      *
-     * @return \Generated\Shared\Transfer\StoreTransfer
+     * @return \Generated\Shared\Transfer\StoreTransfer|null
      */
-    public function getStoreByName($name)
+    public function findStoreByName(string $name): ?StoreTransfer
     {
-        return $this->storeFacade->getStoreByName($name);
+        return $this->storeFacade->findStoreByName($name);
     }
 }
