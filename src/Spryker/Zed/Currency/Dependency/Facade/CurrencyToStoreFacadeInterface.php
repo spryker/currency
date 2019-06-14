@@ -7,7 +7,9 @@
 
 namespace Spryker\Zed\Currency\Dependency\Facade;
 
-interface CurrencyToStoreInterface
+use Generated\Shared\Transfer\StoreTransfer;
+
+interface CurrencyToStoreFacadeInterface
 {
     /**
      * @return \Generated\Shared\Transfer\StoreTransfer[]
@@ -18,4 +20,11 @@ interface CurrencyToStoreInterface
      * @return \Generated\Shared\Transfer\StoreTransfer
      */
     public function getCurrentStore();
+
+    /**
+     * @param string $name
+     *
+     * @return \Generated\Shared\Transfer\StoreTransfer|null
+     */
+    public function findStoreByName(string $name): ?StoreTransfer;
 }
