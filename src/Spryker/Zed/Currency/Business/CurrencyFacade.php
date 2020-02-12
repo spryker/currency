@@ -56,5 +56,4 @@ class CurrencyFacade extends AbstractFacade implements CurrencyFacadeInterface
             ->createCurrencyIsoCodeReader()
             ->getCurrentCurrencyIsoCode();
     }
-
 }
