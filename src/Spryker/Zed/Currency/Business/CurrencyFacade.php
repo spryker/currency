@@ -43,4 +43,17 @@ class CurrencyFacade extends AbstractFacade implements CurrencyFacadeInterface
         return $this->getFactory()->createCurrencyBuilder()->getCurrent();
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
+     * @return string
+     */
+    public function getCurrentCurrencyIsoCode(): string
+    {
+        return $this->getFactory()
+            ->createCurrencyIsoCodeReader()
+            ->getCurrentCurrencyIsoCode();
+    }
 }
