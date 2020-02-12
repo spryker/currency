@@ -35,4 +35,13 @@ interface CurrencyFacadeInterface
      */
     public function getCurrent();
 
+    /**
+     * Specification:
+     * - Gets the default currency ISO code for current store.
+     *
+     * @api
+     *
+     * @return string
+     */
+    public function getCurrentCurrencyIsoCode(): string;
 }
