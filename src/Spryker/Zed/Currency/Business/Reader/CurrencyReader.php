@@ -5,31 +5,27 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace Spryker\Zed\Currency\Business\Model;
+namespace Spryker\Zed\Currency\Business\Reader;
 
 use ArrayObject;
+use Generated\Shared\Transfer\CurrencyTransfer;
 use Generated\Shared\Transfer\StoreTransfer;
 use Generated\Shared\Transfer\StoreWithCurrencyTransfer;
 use Spryker\Zed\Currency\Business\Model\Exception\CurrencyNotFoundException;
 use Spryker\Zed\Currency\Dependency\Facade\CurrencyToStoreFacadeInterface;
-use Spryker\Zed\Currency\Persistence\CurrencyQueryContainerInterface;
+use Spryker\Zed\Currency\Persistence\CurrencyRepositoryInterface;
 
 class CurrencyReader implements CurrencyReaderInterface
 {
     /**
-     * @var \Spryker\Zed\Currency\Persistence\CurrencyQueryContainerInterface
-     */
-    protected $currencyQueryContainer;
-
-    /**
-     * @var \Spryker\Zed\Currency\Business\Model\CurrencyMapperInterface
-     */
-    protected $currencyMapper;
-
-    /**
      * @var \Spryker\Zed\Currency\Dependency\Facade\CurrencyToStoreFacadeInterface
      */
     protected $storeFacade;
+
+    /**
+     * @var \Spryker\Zed\Currency\Persistence\CurrencyRepositoryInterface
+     */
+    protected $currencyRepository;
 
     /**
      * @var array<\Generated\Shared\Transfer\CurrencyTransfer>
@@ -37,18 +33,15 @@ class CurrencyReader implements CurrencyReaderInterface
     protected static $currencyCache = [];
 
     /**
-     * @param \Spryker\Zed\Currency\Persistence\CurrencyQueryContainerInterface $currencyQueryContainer
-     * @param \Spryker\Zed\Currency\Business\Model\CurrencyMapperInterface $currencyMapper
      * @param \Spryker\Zed\Currency\Dependency\Facade\CurrencyToStoreFacadeInterface $storeFacade
+     * @param \Spryker\Zed\Currency\Persistence\CurrencyRepositoryInterface $currencyRepository
      */
     public function __construct(
-        CurrencyQueryContainerInterface $currencyQueryContainer,
-        CurrencyMapperInterface $currencyMapper,
-        CurrencyToStoreFacadeInterface $storeFacade
+        CurrencyToStoreFacadeInterface $storeFacade,
+        CurrencyRepositoryInterface $currencyRepository
     ) {
-        $this->currencyQueryContainer = $currencyQueryContainer;
-        $this->currencyMapper = $currencyMapper;
         $this->storeFacade = $storeFacade;
+        $this->currencyRepository = $currencyRepository;
     }
 
     /**
@@ -58,23 +51,19 @@ class CurrencyReader implements CurrencyReaderInterface
      *
      * @return \Generated\Shared\Transfer\CurrencyTransfer
      */
-    public function getByIdCurrency($idCurrency)
+    public function getByIdCurrency(int $idCurrency): CurrencyTransfer
     {
         if (isset(static::$currencyCache[$idCurrency])) {
             return static::$currencyCache[$idCurrency];
         }
 
-        $currencyEntity = $this->currencyQueryContainer
-            ->queryCurrencyByIdCurrency($idCurrency)
-            ->findOne();
+        $currencyTransfer = $this->currencyRepository->findCurrencyById($idCurrency);
 
-        if (!$currencyEntity) {
+        if ($currencyTransfer === null) {
             throw new CurrencyNotFoundException(
                 sprintf('Currency with id "%d" not found.', $idCurrency),
             );
         }
-
-        $currencyTransfer = $this->currencyMapper->mapEntityToTransfer($currencyEntity);
 
         static::$currencyCache[$idCurrency] = $currencyTransfer;
 
@@ -84,7 +73,7 @@ class CurrencyReader implements CurrencyReaderInterface
     /**
      * @return \Generated\Shared\Transfer\StoreWithCurrencyTransfer
      */
-    public function getCurrentStoreWithCurrencies()
+    public function getCurrentStoreWithCurrencies(): StoreWithCurrencyTransfer
     {
         $storeTransfer = $this->storeFacade->getCurrentStore();
 
@@ -94,10 +83,13 @@ class CurrencyReader implements CurrencyReaderInterface
     /**
      * @return array<\Generated\Shared\Transfer\StoreWithCurrencyTransfer>
      */
-    public function getAllStoresWithCurrencies()
+    public function getAllStoresWithCurrencies(): array
     {
         $currenciesPerStore = [];
         foreach ($this->storeFacade->getAllStores() as $storeTransfer) {
+            if ($storeTransfer->getAvailableCurrencyIsoCodes() === []) {
+                continue;
+            }
             $currenciesPerStore[] = $this->mapStoreCurrency($storeTransfer);
         }
 
@@ -123,23 +115,19 @@ class CurrencyReader implements CurrencyReaderInterface
      *
      * @return \Generated\Shared\Transfer\CurrencyTransfer
      */
-    public function getByIsoCode($isoCode)
+    public function getByIsoCode(string $isoCode): CurrencyTransfer
     {
         if (isset(static::$currencyCache[$isoCode])) {
             return static::$currencyCache[$isoCode];
         }
 
-        $currencyEntity = $this->currencyQueryContainer
-            ->queryCurrencyByIsoCode($isoCode)
-            ->findOne();
+        $currencyTransfer = $this->currencyRepository->findCurrencyByIsoCode($isoCode);
 
-        if (!$currencyEntity) {
+        if ($currencyTransfer === null) {
             throw new CurrencyNotFoundException(
                 sprintf('Currency with ISO code "%s" not found.', $isoCode),
             );
         }
-
-        $currencyTransfer = $this->currencyMapper->mapEntityToTransfer($currencyEntity);
 
         static::$currencyCache[$isoCode] = $currencyTransfer;
 
@@ -149,10 +137,10 @@ class CurrencyReader implements CurrencyReaderInterface
     /**
      * @return \Generated\Shared\Transfer\CurrencyTransfer
      */
-    public function getDefaultCurrencyForCurrentStore()
+    public function getDefaultCurrencyForCurrentStore(): CurrencyTransfer
     {
         $defaultCurrencyIsoCode = $this->storeFacade->getCurrentStore()
-            ->getDefaultCurrencyIsoCode();
+            ->getDefaultCurrencyIsoCodeOrFail();
 
         return $this->getByIsoCode($defaultCurrencyIsoCode);
     }
@@ -162,29 +150,21 @@ class CurrencyReader implements CurrencyReaderInterface
      *
      * @throws \Spryker\Zed\Currency\Business\Model\Exception\CurrencyNotFoundException
      *
-     * @return array
+     * @return array<\Generated\Shared\Transfer\CurrencyTransfer>
      */
-    protected function getCurrenciesByIsoCodes(StoreTransfer $storeTransfer)
+    protected function getCurrenciesByIsoCodes(StoreTransfer $storeTransfer): array
     {
-        $currencyCollection = $this->currencyQueryContainer
-            ->queryCurrenciesByIsoCodes($storeTransfer->getAvailableCurrencyIsoCodes())
-            ->find();
-
-        if (count($currencyCollection) === 0) {
+        $currencyTransfers = $this->currencyRepository->getCurrencyTransfersByIsoCodes($storeTransfer->getAvailableCurrencyIsoCodes());
+        if ($currencyTransfers === []) {
             throw new CurrencyNotFoundException(
                 sprintf(
-                    "There is no currency configured for current store, 
+                    "There is no currency configured for current store,
                     make sure you have currency ISO codes provided in 'currencyIsoCodes' array in current stores.php config.",
                 ),
             );
         }
 
-        $currencies = [];
-        foreach ($currencyCollection as $currencyEntity) {
-            $currencies[] = $this->currencyMapper->mapEntityToTransfer($currencyEntity);
-        }
-
-        return $currencies;
+        return $currencyTransfers;
     }
 
     /**
@@ -192,7 +172,7 @@ class CurrencyReader implements CurrencyReaderInterface
      *
      * @return \Generated\Shared\Transfer\StoreWithCurrencyTransfer
      */
-    protected function mapStoreCurrency(StoreTransfer $storeTransfer)
+    protected function mapStoreCurrency(StoreTransfer $storeTransfer): StoreWithCurrencyTransfer
     {
         $storeWithCurrencyTransfer = new StoreWithCurrencyTransfer();
         $storeWithCurrencyTransfer->setStore($storeTransfer);
