@@ -5,8 +5,9 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace Spryker\Zed\Currency\Business\Model;
+namespace Spryker\Zed\Currency\Business\Reader;
 
+use Generated\Shared\Transfer\CurrencyTransfer;
 use Generated\Shared\Transfer\StoreWithCurrencyTransfer;
 
 interface CurrencyReaderInterface
@@ -18,19 +19,19 @@ interface CurrencyReaderInterface
      *
      * @return \Generated\Shared\Transfer\CurrencyTransfer
      */
-    public function getByIdCurrency($idCurrency);
+    public function getByIdCurrency(int $idCurrency): CurrencyTransfer;
 
     /**
      * @throws \Spryker\Zed\Currency\Business\Model\Exception\CurrencyNotFoundException
      *
      * @return \Generated\Shared\Transfer\StoreWithCurrencyTransfer
      */
-    public function getCurrentStoreWithCurrencies();
+    public function getCurrentStoreWithCurrencies(): StoreWithCurrencyTransfer;
 
     /**
      * @return array<\Generated\Shared\Transfer\StoreWithCurrencyTransfer>
      */
-    public function getAllStoresWithCurrencies();
+    public function getAllStoresWithCurrencies(): array;
 
     /**
      * @param int $idStore
@@ -46,12 +47,12 @@ interface CurrencyReaderInterface
      *
      * @return \Generated\Shared\Transfer\CurrencyTransfer
      */
-    public function getByIsoCode($isoCode);
+    public function getByIsoCode(string $isoCode): CurrencyTransfer;
 
     /**
      * @throws \Spryker\Zed\Currency\Business\Model\Exception\CurrencyNotFoundException
      *
      * @return \Generated\Shared\Transfer\CurrencyTransfer
      */
-    public function getDefaultCurrencyForCurrentStore();
+    public function getDefaultCurrencyForCurrentStore(): CurrencyTransfer;
 }
