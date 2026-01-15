@@ -5,7 +5,7 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace SprykerTest\Yves\Currency\Plugin;
+namespace SprykerTest\Yves\Currency\Communication\Plugin;
 
 use Codeception\Test\Unit;
 use Generated\Shared\Transfer\CurrencyTransfer;
@@ -18,6 +18,7 @@ use SprykerTest\Service\Container\Helper\ContainerHelperTrait;
  * @group SprykerTest
  * @group Yves
  * @group Currency
+ * @group Communication
  * @group Plugin
  * @group CurrencyPluginTest
  * Add your own group annotations below this line

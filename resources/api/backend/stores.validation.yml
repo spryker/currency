@@ -1,0 +1,42 @@
+post:
+    defaultCurrencyIsoCode:
+        - Type:
+              type: string
+              message: The three letter ISO code of the default currency
+        - Regex:
+              pattern: '/^[A-Z]{3}$/'
+              message: Currency code must be exactly three uppercase letters (ISO 4217 format)
+
+    availableCurrencyIsoCodes:
+        - Type:
+              type: array
+              message: Available currency ISO codes must be an array
+        - All:
+              constraints:
+                  - Regex:
+                        pattern: '/^[A-Z]{3}$/'
+                        message: Each currency code must be exactly three uppercase letters (ISO 4217 format)
+
+patch:
+    defaultCurrencyIsoCode:
+        - Type:
+              type: string
+              message: The three letter ISO code of the default currency
+        - Regex:
+              pattern: '/^[A-Z]{3}$/'
+              message: Currency code must be exactly three uppercase letters (ISO 4217 format)
+
+    availableCurrencyIsoCodes:
+        - Optional:
+              constraints:
+                  - Type:
+                        type: array
+                        message: Available currency ISO codes must be an array
+                  - Count:
+                        min: 1
+                        minMessage: At least one currency ISO code is required
+                  - All:
+                        constraints:
+                            - Regex:
+                                  pattern: '/^[A-Z]{3}$/'
+                                  message: Each currency code must be exactly three uppercase letters (ISO 4217 format)

@@ -1,0 +1,18 @@
+resource:
+    name: Stores
+    shortName: stores
+
+    properties:
+        availableCurrencyIsoCodes:
+            type: array
+            description: List of available currency ISO codes using ISO 4217 format (three uppercase letters).
+            writable: true
+            openapiContext:
+                example: ['EUR', 'USD']
+
+        defaultCurrencyIsoCode:
+            type: string
+            description: The three letter ISO code of the default currency using ISO 4217 format (three uppercase letters). This value must be present in the availableCurrencyIsoCodes array.
+            writable: true
+            openapiContext:
+                example: EUR
