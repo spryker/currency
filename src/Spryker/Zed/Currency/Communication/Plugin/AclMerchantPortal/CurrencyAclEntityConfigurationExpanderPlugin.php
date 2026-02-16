@@ -16,7 +16,6 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
  * @method \Spryker\Zed\Currency\Communication\CurrencyCommunicationFactory getFactory()
  * @method \Spryker\Zed\Currency\Business\CurrencyFacadeInterface getFacade()
  * @method \Spryker\Zed\Currency\CurrencyConfig getConfig()
- * @method \Spryker\Zed\Currency\Persistence\CurrencyQueryContainerInterface getQueryContainer()
  */
 class CurrencyAclEntityConfigurationExpanderPlugin extends AbstractPlugin implements AclEntityConfigurationExpanderPluginInterface
 {
