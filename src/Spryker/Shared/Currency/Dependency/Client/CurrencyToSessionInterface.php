@@ -9,12 +9,6 @@ namespace Spryker\Shared\Currency\Dependency\Client;
 
 interface CurrencyToSessionInterface
 {
-    /**
-     * @param string $name
-     * @param mixed $value
-     *
-     * @return void
-     */
     public function set(string $name, mixed $value): void;
 
     /**

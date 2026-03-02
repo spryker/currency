@@ -27,11 +27,6 @@ class CurrencySwitchController extends AbstractController
      */
     public const URL_PARAM_REFERRER_URL = 'referrer-url';
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     */
     public function indexAction(Request $request): RedirectResponse
     {
         $currencyIsoCode = $request->get(static::URL_PARAM_CURRENCY_ISO_CODE);

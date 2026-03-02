@@ -18,20 +18,11 @@ class CurrencyMapper
      */
     protected $currencyInternationalization;
 
-    /**
-     * @param \Spryker\Shared\Currency\Dependency\Internationalization\CurrencyToInternationalizationInterface $currencyInternationalization
-     */
     public function __construct(CurrencyToInternationalizationInterface $currencyInternationalization)
     {
         $this->currencyInternationalization = $currencyInternationalization;
     }
 
-    /**
-     * @param \Orm\Zed\Currency\Persistence\SpyCurrency $currencyEntity
-     * @param \Generated\Shared\Transfer\CurrencyTransfer $currencyTransfer
-     *
-     * @return \Generated\Shared\Transfer\CurrencyTransfer
-     */
     public function mapCurrencyEntityToCurrencyTransfer(
         SpyCurrency $currencyEntity,
         CurrencyTransfer $currencyTransfer
@@ -49,12 +40,6 @@ class CurrencyMapper
         return $currencyTransfer->setFractionDigits($fractionDigits);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CurrencyTransfer $currencyTransfer
-     * @param \Orm\Zed\Currency\Persistence\SpyCurrency $currencyEntity
-     *
-     * @return \Orm\Zed\Currency\Persistence\SpyCurrency
-     */
     public function mapCurrencyTransferToCurrencyEntity(
         CurrencyTransfer $currencyTransfer,
         SpyCurrency $currencyEntity

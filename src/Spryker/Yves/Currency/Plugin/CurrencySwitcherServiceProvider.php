@@ -65,11 +65,6 @@ class CurrencySwitcherServiceProvider extends AbstractPlugin implements ServiceP
     {
     }
 
-    /**
-     * @param \Twig\Environment $twig
-     *
-     * @return \Twig\TwigFunction
-     */
     protected function getCurrencySwitcher(Environment $twig): TwigFunction
     {
         $options = ['is_safe' => ['html']];
@@ -100,9 +95,6 @@ class CurrencySwitcherServiceProvider extends AbstractPlugin implements ServiceP
         return $currencies;
     }
 
-    /**
-     * @return string
-     */
     protected function getCurrentCurrency(): string
     {
         $currentCurrencyIsoCode = $this->getClient()->getCurrent()->getCode();

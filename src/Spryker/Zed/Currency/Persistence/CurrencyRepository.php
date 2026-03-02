@@ -37,11 +37,6 @@ class CurrencyRepository extends AbstractRepository implements CurrencyRepositor
         $this->currencyMapper = $this->getFactory()->createCurrencyMapper();
     }
 
-    /**
-     * @param string $isoCode
-     *
-     * @return \Generated\Shared\Transfer\CurrencyTransfer|null
-     */
     public function findCurrencyByIsoCode(string $isoCode): ?CurrencyTransfer
     {
         $currencyEntity = $this->getFactory()
@@ -115,11 +110,6 @@ class CurrencyRepository extends AbstractRepository implements CurrencyRepositor
         return $currencyCodesByStoreId;
     }
 
-    /**
-     * @param int $id
-     *
-     * @return \Generated\Shared\Transfer\CurrencyTransfer|null
-     */
     public function findCurrencyById(int $id): ?CurrencyTransfer
     {
         $currencyEntity = $this->getFactory()
@@ -174,11 +164,6 @@ class CurrencyRepository extends AbstractRepository implements CurrencyRepositor
         return $indexedCurrencyCodes;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CurrencyCriteriaTransfer $currencyCriteriaTransfer
-     *
-     * @return \Generated\Shared\Transfer\CurrencyCollectionTransfer
-     */
     public function getCurrencyCollection(CurrencyCriteriaTransfer $currencyCriteriaTransfer): CurrencyCollectionTransfer
     {
         $currencyCollectionTransfer = new CurrencyCollectionTransfer();
@@ -195,12 +180,6 @@ class CurrencyRepository extends AbstractRepository implements CurrencyRepositor
         );
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CurrencyCriteriaTransfer $currencyCriteriaTransfer
-     * @param \Generated\Shared\Transfer\CurrencyCollectionTransfer $currencyCollectionTransfer
-     *
-     * @return \Propel\Runtime\Collection\Collection<\Propel\Runtime\ActiveRecord\ActiveRecordInterface>|mixed
-     */
     protected function getCurrencyEntitityCollection(
         CurrencyCriteriaTransfer $currencyCriteriaTransfer,
         CurrencyCollectionTransfer $currencyCollectionTransfer
@@ -227,12 +206,6 @@ class CurrencyRepository extends AbstractRepository implements CurrencyRepositor
         return $currencyQuery->find();
     }
 
-    /**
-     * @param \Orm\Zed\Currency\Persistence\SpyCurrencyQuery $currencyQuery
-     * @param \Generated\Shared\Transfer\CurrencyConditionsTransfer $currencyConditionsTransfer
-     *
-     * @return \Orm\Zed\Currency\Persistence\SpyCurrencyQuery
-     */
     protected function applyCurrencyConditions(SpyCurrencyQuery $currencyQuery, CurrencyConditionsTransfer $currencyConditionsTransfer): SpyCurrencyQuery
     {
         if ($currencyConditionsTransfer->getCodes()) {

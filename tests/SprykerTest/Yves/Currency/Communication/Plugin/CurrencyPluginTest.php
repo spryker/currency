@@ -32,9 +32,6 @@ class CurrencyPluginTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -43,9 +40,6 @@ class CurrencyPluginTest extends Unit
         $this->tester->mockSession();
     }
 
-    /**
-     * @return void
-     */
     public function testFromIsoCodeShouldReturnCurrencyTransfer(): void
     {
         // Assign
@@ -59,9 +53,6 @@ class CurrencyPluginTest extends Unit
         $this->assertEquals($this->tester::CURRENCY_USD, $currencyTransfer->getCode());
     }
 
-    /**
-     * @return void
-     */
     public function testGetDefaultShouldReturnCurrencyTransfer(): void
     {
         // Assign

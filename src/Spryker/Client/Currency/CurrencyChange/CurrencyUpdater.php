@@ -61,11 +61,6 @@ class CurrencyUpdater implements CurrencyUpdaterInterface
         $this->currentCurrencyIsoCodePreCheckPlugins = $currentCurrencyIsoCodePreCheckPlugins;
     }
 
-    /**
-     * @param string $currencyIsoCode
-     *
-     * @return void
-     */
     public function setCurrentCurrencyIsoCode(string $currencyIsoCode): void
     {
         $this->validateCurrency($currencyIsoCode);
@@ -98,11 +93,6 @@ class CurrencyUpdater implements CurrencyUpdaterInterface
         }
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CurrencyTransfer $currencyTransfer
-     *
-     * @return bool
-     */
     protected function executeCurrentCurrencyIsoCodePreCheckPlugins(CurrencyTransfer $currencyTransfer): bool
     {
         foreach ($this->currentCurrencyIsoCodePreCheckPlugins as $currentCurrencyIsoCodePreCheckPlugin) {

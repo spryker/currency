@@ -46,11 +46,6 @@ class CurrencyDependencyProvider extends AbstractDependencyProvider
      */
     public const PLUGINS_CURRENT_CURRENCY_ISO_CODE_PRE_CHECK = 'PLUGINS_CURRENT_CURRENCY_ISO_CODE_PRE_CHECK';
 
-    /**
-     * @param \Spryker\Client\Kernel\Container $container
-     *
-     * @return \Spryker\Client\Kernel\Container
-     */
     public function provideServiceLayerDependencies(Container $container): Container
     {
         $container = $this->addCurrencyPostChangePlugins($container);
@@ -63,11 +58,6 @@ class CurrencyDependencyProvider extends AbstractDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Client\Kernel\Container $container
-     *
-     * @return \Spryker\Client\Kernel\Container
-     */
     protected function addSessionClient(Container $container): Container
     {
         $container->set(static::CLIENT_SESSION, function (Container $container) {
@@ -77,11 +67,6 @@ class CurrencyDependencyProvider extends AbstractDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Client\Kernel\Container $container
-     *
-     * @return \Spryker\Client\Kernel\Container
-     */
     protected function addInternationalization(Container $container): Container
     {
         $container->set(static::INTERNATIONALIZATION, function () {
@@ -91,11 +76,6 @@ class CurrencyDependencyProvider extends AbstractDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Client\Kernel\Container $container
-     *
-     * @return \Spryker\Client\Kernel\Container
-     */
     protected function addZedRequestClient(Container $container): Container
     {
         $container->set(static::CLIENT_ZED_REQUEST, function (Container $container) {
@@ -105,11 +85,6 @@ class CurrencyDependencyProvider extends AbstractDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Client\Kernel\Container $container
-     *
-     * @return \Spryker\Client\Kernel\Container
-     */
     protected function addStoreClient(Container $container): Container
     {
         $container->set(static::CLIENT_STORE, function (Container $container) {
@@ -119,11 +94,6 @@ class CurrencyDependencyProvider extends AbstractDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Client\Kernel\Container $container
-     *
-     * @return \Spryker\Client\Kernel\Container
-     */
     protected function addCurrencyPostChangePlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_CURRENCY_POST_CHANGE, function () {
@@ -133,11 +103,6 @@ class CurrencyDependencyProvider extends AbstractDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Client\Kernel\Container $container
-     *
-     * @return \Spryker\Client\Kernel\Container
-     */
     protected function addCurrentCurrencyIsoCodePreCheckPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_CURRENT_CURRENCY_ISO_CODE_PRE_CHECK, function () {

@@ -23,11 +23,6 @@ class StoreCurrencyValidator implements StoreCurrencyValidatorInterface
      */
     protected const ERROR_MESSAGE_PARAM_CURRENCY_CODE = 'currency_code';
 
-    /**
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return \Generated\Shared\Transfer\StoreResponseTransfer
-     */
     public function validateStoreCurrencies(StoreTransfer $storeTransfer): StoreResponseTransfer
     {
         $storeResponseTransfer = (new StoreResponseTransfer());

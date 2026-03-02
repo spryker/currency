@@ -21,11 +21,6 @@ class CurrencyDataHelper extends Module
     use DataCleanupHelperTrait;
     use LocatorHelperTrait;
 
-    /**
-     * @param array $override
-     *
-     * @return int
-     */
     public function haveCurrency(array $override = []): int
     {
         $currencyTransfer = (new CurrencyBuilder($override))->build();
@@ -42,11 +37,6 @@ class CurrencyDataHelper extends Module
         return $idCurrency;
     }
 
-    /**
-     * @param array $override
-     *
-     * @return \Generated\Shared\Transfer\CurrencyTransfer
-     */
     public function haveCurrencyTransfer(array $override = []): CurrencyTransfer
     {
         $idCurrency = $this->haveCurrency($override);
@@ -54,12 +44,6 @@ class CurrencyDataHelper extends Module
         return $this->getCurrencyFacade()->getByIdCurrency($idCurrency);
     }
 
-    /**
-     * @param int $idStore
-     * @param int $idCurrency
-     *
-     * @return int
-     */
     public function haveCurrencyStore(int $idStore, int $idCurrency): int
     {
         $currencyStoreEntity = $this->createCurrencyStorePropelQuery()
@@ -79,12 +63,6 @@ class CurrencyDataHelper extends Module
         return $currencyStoreEntity->getIdCurrencyStore();
     }
 
-    /**
-     * @param int $idStore
-     * @param int $idCurrency
-     *
-     * @return bool
-     */
     public function currencyStoreExists(int $idStore, int $idCurrency): bool
     {
         return $this->createCurrencyStorePropelQuery()
@@ -93,11 +71,6 @@ class CurrencyDataHelper extends Module
             ->exists();
     }
 
-    /**
-     * @param int $idStore
-     *
-     * @return void
-     */
     public function deleteCurrencyStore(int $idStore): void
     {
         $currencyStoreQuery = $this->createCurrencyStorePropelQuery();
@@ -107,34 +80,22 @@ class CurrencyDataHelper extends Module
             ->delete();
     }
 
-    /**
-     * @return void
-     */
     public function ensureCurrencyStoreDatabaseTableIsEmpty(): void
     {
         $countryStoreQuery = $this->createCurrencyStorePropelQuery();
         $countryStoreQuery->deleteAll();
     }
 
-    /**
-     * @return int
-     */
     public function getCurrencyStoreRelationsCount(): int
     {
         return $this->createCurrencyStorePropelQuery()->count();
     }
 
-    /**
-     * @return \Orm\Zed\Currency\Persistence\SpyCurrencyStoreQuery
-     */
     protected function createCurrencyStorePropelQuery(): SpyCurrencyStoreQuery
     {
         return SpyCurrencyStoreQuery::create();
     }
 
-    /**
-     * @return \Spryker\Zed\Currency\Business\CurrencyFacadeInterface
-     */
     protected function getCurrencyFacade(): CurrencyFacadeInterface
     {
         return $this->getLocator()->currency()->facade();

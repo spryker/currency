@@ -12,11 +12,6 @@ use Generated\Shared\Transfer\StoreTransfer;
 
 interface CurrencyEntityManagerInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\CurrencyTransfer $currencyTransfer
-     *
-     * @return \Generated\Shared\Transfer\CurrencyTransfer
-     */
     public function createCurrency(CurrencyTransfer $currencyTransfer): CurrencyTransfer;
 
     /**
@@ -27,11 +22,5 @@ interface CurrencyEntityManagerInterface
      */
     public function updateCurrencyStores(StoreTransfer $storeTransfer, array $currencyTransfers): void;
 
-    /**
-     * @param \Generated\Shared\Transfer\CurrencyTransfer $currencyTransfer
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return void
-     */
     public function updateStoreDefaultCurrency(CurrencyTransfer $currencyTransfer, StoreTransfer $storeTransfer): void;
 }

@@ -52,11 +52,6 @@ class CurrencyEntityManager extends AbstractEntityManager implements CurrencyEnt
         $currencyStoreCollection->delete();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CurrencyTransfer $currencyTransfer
-     *
-     * @return \Generated\Shared\Transfer\CurrencyTransfer
-     */
     public function createCurrency(CurrencyTransfer $currencyTransfer): CurrencyTransfer
     {
         $currencyEntity = $this->getFactory()

@@ -16,22 +16,9 @@ interface CurrencyToStoreFacadeInterface
      */
     public function getAllStores(): array;
 
-    /**
-     * @return \Generated\Shared\Transfer\StoreTransfer
-     */
     public function getCurrentStore(): StoreTransfer;
 
-    /**
-     * @param string $storeName
-     *
-     * @return \Generated\Shared\Transfer\StoreTransfer|null
-     */
     public function findStoreByName(string $storeName): ?StoreTransfer;
 
-    /**
-     * @param int $idStore
-     *
-     * @return \Generated\Shared\Transfer\StoreTransfer
-     */
     public function getStoreById(int $idStore): StoreTransfer;
 }

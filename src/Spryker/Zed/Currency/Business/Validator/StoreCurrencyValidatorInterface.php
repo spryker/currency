@@ -12,10 +12,5 @@ use Generated\Shared\Transfer\StoreTransfer;
 
 interface StoreCurrencyValidatorInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return \Generated\Shared\Transfer\StoreResponseTransfer
-     */
     public function validateStoreCurrencies(StoreTransfer $storeTransfer): StoreResponseTransfer;
 }

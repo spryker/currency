@@ -32,9 +32,6 @@ class CurrencyClientTest extends Unit
      */
     protected CurrencyClientTester $tester;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -42,9 +39,6 @@ class CurrencyClientTest extends Unit
         $this->tester->mockStoreClientDependency();
     }
 
-    /**
-     * @return void
-     */
     public function testFromIsoCodeReturnsCurrencyTransfer(): void
     {
         // Assign
@@ -58,9 +52,6 @@ class CurrencyClientTest extends Unit
         $this->assertEquals($this->tester::CURRENCY_USD, $currencyTransfer->getCode());
     }
 
-    /**
-     * @return void
-     */
     public function testGetCurrentReturnsDefaultCurency(): void
     {
         // Assign
@@ -74,9 +65,6 @@ class CurrencyClientTest extends Unit
         $this->assertEquals($this->tester::CURRENCY_USD, $currencyTransfer->getCode());
     }
 
-    /**
-     * @return void
-     */
     public function testSetCurrentCurrencyIsoCodeChecksCorrectCurencyIsoCode(): void
     {
         // Assign
@@ -91,9 +79,6 @@ class CurrencyClientTest extends Unit
         $this->assertEquals($this->tester::CURRENCY_EUR, $currencyTransfer->getCode());
     }
 
-    /**
-     * @return void
-     */
     public function testSetCurrentCurrencyIsoCodeExecutesCurrentCurrencyIsoCodePreCheckPlugins(): void
     {
         // Assert
@@ -108,9 +93,6 @@ class CurrencyClientTest extends Unit
         $this->tester->getCurrencyClient()->setCurrentCurrencyIsoCode($this->tester::CURRENCY_EUR);
     }
 
-    /**
-     * @return void
-     */
     public function testGetCurrencyIsoCodesReturnsAvailbleCurrencyIsoCodes(): void
     {
         // Assign
@@ -124,9 +106,6 @@ class CurrencyClientTest extends Unit
         $this->assertSame([$this->tester::CURRENCY_EUR, $this->tester::CURRENCY_USD], $currencyIsoCodes);
     }
 
-    /**
-     * @return \Spryker\Client\CurrencyExtension\Dependency\Plugin\CurrentCurrencyIsoCodePreCheckPluginInterface
-     */
     protected function getCurrentCurrencyIsoCodePreCheckPluginMock(): CurrentCurrencyIsoCodePreCheckPluginInterface
     {
         $currentCurrencyIsoCodePreCheckPluginMock = $this

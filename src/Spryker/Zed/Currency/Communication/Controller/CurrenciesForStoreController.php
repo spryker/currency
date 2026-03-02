@@ -23,11 +23,6 @@ class CurrenciesForStoreController extends AbstractController
      */
     protected const KEY_ID_STORE = 'idStore';
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     */
     public function indexAction(Request $request): JsonResponse
     {
         $idStore = $request->request->get(static::KEY_ID_STORE);

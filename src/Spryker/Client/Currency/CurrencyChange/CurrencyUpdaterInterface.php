@@ -9,10 +9,5 @@ namespace Spryker\Client\Currency\CurrencyChange;
 
 interface CurrencyUpdaterInterface
 {
-    /**
-     * @param string $currencyIsoCode
-     *
-     * @return void
-     */
     public function setCurrentCurrencyIsoCode(string $currencyIsoCode): void;
 }

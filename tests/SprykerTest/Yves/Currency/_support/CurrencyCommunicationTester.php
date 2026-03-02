@@ -52,17 +52,11 @@ class CurrencyCommunicationTester extends Actor
      */
     protected const CLIENT_STORE = 'CLIENT_STORE';
 
-    /**
-     * @return void
-     */
     public function mockSession(): void
     {
         $this->setDependency(CurrencyDependencyProvider::CLIENT_SESSION, Stub::makeEmpty(CurrencyToSessionInterface::class));
     }
 
-    /**
-     * @return void
-     */
     public function mockStoreClientDependency(): void
     {
         $currencyToStoreClientMock = Stub::makeEmpty(CurrencyToStoreClientInterface::class);

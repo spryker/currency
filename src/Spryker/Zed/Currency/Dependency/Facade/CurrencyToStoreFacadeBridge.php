@@ -32,29 +32,16 @@ class CurrencyToStoreFacadeBridge implements CurrencyToStoreFacadeInterface
         return $this->storeFacade->getAllStores();
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\StoreTransfer
-     */
     public function getCurrentStore(): StoreTransfer
     {
         return $this->storeFacade->getCurrentStore();
     }
 
-    /**
-     * @param string $storeName
-     *
-     * @return \Generated\Shared\Transfer\StoreTransfer|null
-     */
     public function findStoreByName(string $storeName): ?StoreTransfer
     {
         return $this->storeFacade->findStoreByName($storeName);
     }
 
-    /**
-     * @param int $idStore
-     *
-     * @return \Generated\Shared\Transfer\StoreTransfer
-     */
     public function getStoreById(int $idStore): StoreTransfer
     {
         return $this->storeFacade->getStoreById($idStore);

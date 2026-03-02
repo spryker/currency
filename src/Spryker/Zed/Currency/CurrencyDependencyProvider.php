@@ -44,11 +44,6 @@ class CurrencyDependencyProvider extends AbstractBundleDependencyProvider
      */
     protected const SERVICE_CURRENCY = 'currency';
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     public function provideBusinessLayerDependencies(Container $container): Container
     {
         $container = $this->addStoreFacade($container);
@@ -71,11 +66,6 @@ class CurrencyDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     public function providePersistenceLayerDependencies(Container $container): Container
     {
         $container = $this->addInternationalization($container);
@@ -84,11 +74,6 @@ class CurrencyDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addInternationalization(Container $container): Container
     {
         $container->set(static::INTERNATIONALIZATION, function () {
@@ -98,11 +83,6 @@ class CurrencyDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addCurrentCurrency(Container $container): Container
     {
         $container->set(static::CURRENCY_CURRENT, function (Container $container) {
@@ -126,11 +106,6 @@ class CurrencyDependencyProvider extends AbstractBundleDependencyProvider
         return Store::getInstance()->getCurrencyIsoCode();
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addStoreFacade(Container $container): Container
     {
         $container->set(static::FACADE_STORE, function (Container $container) {
@@ -140,11 +115,6 @@ class CurrencyDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addStorePropelQuery(Container $container): Container
     {
         $container->set(static::PROPEL_QUERY_STORE, $container->factory(function (): SpyStoreQuery {

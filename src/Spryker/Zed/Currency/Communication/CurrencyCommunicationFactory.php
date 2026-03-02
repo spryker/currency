@@ -19,9 +19,6 @@ use Spryker\Zed\Kernel\Communication\AbstractCommunicationFactory;
  */
 class CurrencyCommunicationFactory extends AbstractCommunicationFactory
 {
-    /**
-     * @return \Spryker\Zed\Currency\Dependency\Facade\CurrencyToStoreFacadeInterface
-     */
     public function getStoreFacade(): CurrencyToStoreFacadeInterface
     {
         return $this->getProvidedDependency(CurrencyDependencyProvider::FACADE_STORE);

@@ -11,15 +11,7 @@ use Generated\Shared\Transfer\CurrencyTransfer;
 
 interface CurrencyBuilderInterface
 {
-    /**
-     * @param string $isoCode
-     *
-     * @return \Generated\Shared\Transfer\CurrencyTransfer
-     */
     public function fromIsoCode(string $isoCode): CurrencyTransfer;
 
-    /**
-     * @return \Generated\Shared\Transfer\CurrencyTransfer
-     */
     public function getCurrent(): CurrencyTransfer;
 }

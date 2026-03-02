@@ -11,10 +11,5 @@ use Generated\Shared\Transfer\CurrencyTransfer;
 
 interface CurrencyPostChangePluginExecutorInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\CurrencyTransfer $currency
-     *
-     * @return bool
-     */
     public function execute(CurrencyTransfer $currency): bool;
 }

@@ -39,19 +39,11 @@ class QuoteValidator implements QuoteValidatorInterface
      */
     protected $storeFacade;
 
-    /**
-     * @param \Spryker\Zed\Currency\Dependency\Facade\CurrencyToStoreFacadeInterface $storeFacade
-     */
     public function __construct(CurrencyToStoreFacadeInterface $storeFacade)
     {
         $this->storeFacade = $storeFacade;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteValidationResponseTransfer
-     */
     public function validate(QuoteTransfer $quoteTransfer): QuoteValidationResponseTransfer
     {
         $currencyTransfer = $quoteTransfer->getCurrency();

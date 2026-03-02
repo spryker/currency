@@ -32,10 +32,6 @@ class CurrencyReader implements CurrencyReaderInterface
      */
     protected static $currencyCache = [];
 
-    /**
-     * @param \Spryker\Zed\Currency\Dependency\Facade\CurrencyToStoreFacadeInterface $storeFacade
-     * @param \Spryker\Zed\Currency\Persistence\CurrencyRepositoryInterface $currencyRepository
-     */
     public function __construct(
         CurrencyToStoreFacadeInterface $storeFacade,
         CurrencyRepositoryInterface $currencyRepository
@@ -70,9 +66,6 @@ class CurrencyReader implements CurrencyReaderInterface
         return $currencyTransfer;
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\StoreWithCurrencyTransfer
-     */
     public function getCurrentStoreWithCurrencies(): StoreWithCurrencyTransfer
     {
         $storeTransfer = $this->storeFacade->getCurrentStore();
@@ -96,11 +89,6 @@ class CurrencyReader implements CurrencyReaderInterface
         return $currenciesPerStore;
     }
 
-    /**
-     * @param int $idStore
-     *
-     * @return \Generated\Shared\Transfer\StoreWithCurrencyTransfer
-     */
     public function getStoreWithCurrenciesByIdStore(int $idStore): StoreWithCurrencyTransfer
     {
         $storeTransfer = $this->storeFacade->getStoreById($idStore);
@@ -134,9 +122,6 @@ class CurrencyReader implements CurrencyReaderInterface
         return $currencyTransfer;
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\CurrencyTransfer
-     */
     public function getDefaultCurrencyForCurrentStore(): CurrencyTransfer
     {
         $defaultCurrencyIsoCode = $this->storeFacade->getCurrentStore()
@@ -167,11 +152,6 @@ class CurrencyReader implements CurrencyReaderInterface
         return $currencyTransfers;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return \Generated\Shared\Transfer\StoreWithCurrencyTransfer
-     */
     protected function mapStoreCurrency(StoreTransfer $storeTransfer): StoreWithCurrencyTransfer
     {
         $storeWithCurrencyTransfer = new StoreWithCurrencyTransfer();

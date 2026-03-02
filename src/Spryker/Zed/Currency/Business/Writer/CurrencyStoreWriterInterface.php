@@ -12,10 +12,5 @@ use Generated\Shared\Transfer\StoreTransfer;
 
 interface CurrencyStoreWriterInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return \Generated\Shared\Transfer\StoreResponseTransfer
-     */
     public function updateStoreCurrencies(StoreTransfer $storeTransfer): StoreResponseTransfer;
 }

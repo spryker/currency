@@ -27,11 +27,6 @@ class CurrencyBuilder implements CurrencyBuilderInterface
      */
     protected $currentCurrencyIsoCode;
 
-    /**
-     * @param \Spryker\Shared\Currency\Dependency\Internationalization\CurrencyToInternationalizationInterface $currencyRepository
-     * @param string $defaultIsoCode
-     * @param string $currentCurrencyIsoCode
-     */
     public function __construct(
         CurrencyToInternationalizationInterface $currencyRepository,
         string $defaultIsoCode,
@@ -42,11 +37,6 @@ class CurrencyBuilder implements CurrencyBuilderInterface
         $this->currentCurrencyIsoCode = $currentCurrencyIsoCode;
     }
 
-    /**
-     * @param string $isoCode
-     *
-     * @return \Generated\Shared\Transfer\CurrencyTransfer
-     */
     public function fromIsoCode(string $isoCode): CurrencyTransfer
     {
         $currencyTransfer = new CurrencyTransfer();
@@ -59,9 +49,6 @@ class CurrencyBuilder implements CurrencyBuilderInterface
         return $currencyTransfer;
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\CurrencyTransfer
-     */
     public function getCurrent(): CurrencyTransfer
     {
         return $this->fromIsoCode($this->currentCurrencyIsoCode);

@@ -23,9 +23,6 @@ use Spryker\Shared\Currency\Persistence\CurrencyPersistence;
  */
 class CurrencyPersistenceTest extends Unit
 {
-    /**
-     * @return void
-     */
     public function testGetCurrentIsoCodeShouldReadFromStoreClassIfNotPersisted(): void
     {
         $defaultCurrency = 'EUR';
@@ -38,9 +35,6 @@ class CurrencyPersistenceTest extends Unit
         $this->assertSame($defaultCurrency, $currencyPersistence->getCurrentCurrencyIsoCode());
     }
 
-    /**
-     * @return void
-     */
     public function testGetCurrentIsoCodeShouldReadFromPersistenceFirst(): void
     {
         $storeCurrency = 'EUR';
@@ -54,12 +48,6 @@ class CurrencyPersistenceTest extends Unit
         $this->assertSame($sessionCurrency, $currencyPersistence->getCurrentCurrencyIsoCode());
     }
 
-    /**
-     * @param \Spryker\Shared\Currency\Dependency\Client\CurrencyToSessionInterface $sessionClientMock
-     * @param string $defaultIsoCode
-     *
-     * @return \Spryker\Shared\Currency\Persistence\CurrencyPersistence
-     */
     protected function createCurrencyPersistence(CurrencyToSessionInterface $sessionClientMock, string $defaultIsoCode): CurrencyPersistence
     {
         return new CurrencyPersistence($sessionClientMock, $defaultIsoCode);

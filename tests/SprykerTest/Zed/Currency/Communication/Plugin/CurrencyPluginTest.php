@@ -49,9 +49,6 @@ class CurrencyPluginTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -59,9 +56,6 @@ class CurrencyPluginTest extends Unit
         $this->tester->setDependency(CurrencyDependencyProvider::FACADE_STORE, $this->createCurrencyToStoreFacadeMock());
     }
 
-    /**
-     * @return void
-     */
     public function testFromIsoCodeShouldReturnCurrencyTransfer(): void
     {
         // Act
@@ -71,9 +65,6 @@ class CurrencyPluginTest extends Unit
         $this->assertInstanceOf(CurrencyTransfer::class, $currencyTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testGetDefaultShouldReturnCurrencyTransfer(): void
     {
         // Arrange

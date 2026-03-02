@@ -34,11 +34,6 @@ class CurrencyPostChangePluginExecutor implements CurrencyPostChangePluginExecut
         $this->zedRequestClient = $zedRequestClient;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CurrencyTransfer $currency
-     *
-     * @return bool
-     */
     public function execute(CurrencyTransfer $currency): bool
     {
         foreach ($this->currencyPostChangePlugins as $currencyPostChangePlugins) {

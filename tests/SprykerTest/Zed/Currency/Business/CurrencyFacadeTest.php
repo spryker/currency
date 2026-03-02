@@ -79,9 +79,6 @@ class CurrencyFacadeTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     public function testGetByIdCurrencyShouldReturnCurrencyTransfer(): void
     {
         $idCurrency = $this->tester->haveCurrency();
@@ -90,9 +87,6 @@ class CurrencyFacadeTest extends Unit
         $this->assertNotNull($currencyTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testCreateCurrencyShouldPersistGivenData(): void
     {
         $currencyTransfer = (new CurrencyBuilder())->build();
@@ -102,9 +96,6 @@ class CurrencyFacadeTest extends Unit
         $this->assertNotNull($idCurrency);
     }
 
-    /**
-     * @return void
-     */
     public function testGetByIdCurrencyShouldReturnCurrencyFromPersistence(): void
     {
         $currencyTransfer = $this->tester->getFacade()->getByIdCurrency(1);
@@ -112,9 +103,6 @@ class CurrencyFacadeTest extends Unit
         $this->assertInstanceOf(CurrencyTransfer::class, $currencyTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testValidateCurrencyInQuoteWithEmptyCurrency(): void
     {
         $quoteTransfer = new QuoteTransfer();
@@ -129,9 +117,6 @@ class CurrencyFacadeTest extends Unit
         $this->assertContains(static::ERROR_MESSAGE_CURRENCY_DATA_IS_MISSING, $errors);
     }
 
-    /**
-     * @return void
-     */
     public function testValidateCurrencyInQuoteWithEmptyCurrencyIsoCode(): void
     {
         $currencyTransfer = new CurrencyTransfer();
@@ -148,9 +133,6 @@ class CurrencyFacadeTest extends Unit
         $this->assertContains(static::ERROR_MESSAGE_CURRENCY_DATA_IS_MISSING, $errors);
     }
 
-    /**
-     * @return void
-     */
     public function testValidateCurrencyInQuoteWithWrongCurrencyIsoCode(): void
     {
         // Arrange
@@ -174,9 +156,6 @@ class CurrencyFacadeTest extends Unit
         $this->assertContains(static::ERROR_MESSAGE_CURRENCY_DATA_IS_INCORRECT, $errors);
     }
 
-    /**
-     * @return void
-     */
     public function testValidateCurrencyInQuoteWithCorrectIsoCode(): void
     {
         // Arrange
@@ -199,9 +178,6 @@ class CurrencyFacadeTest extends Unit
         $this->assertEmpty($quoteValidationResponseTransfer->getErrors());
     }
 
-    /**
-     * @return void
-     */
     public function testUpdateStoreCountriesWithAddingNewAndRemovingOldRelations(): void
     {
         // Arrange
@@ -230,9 +206,6 @@ class CurrencyFacadeTest extends Unit
         $this->assertFalse($this->tester->currencyStoreExists($storeTransfer->getIdStoreOrFail(), $idCurrencyGbp));
     }
 
-    /**
-     * @return void
-     */
     public function testExpandStoreTransfersWithCurrenciesSuccessful(): void
     {
         // Arrange
@@ -257,9 +230,6 @@ class CurrencyFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testExpandStoreTransfersWithCurrenciesSuccessfulWithoutCurrencyStoreRelations(): void
     {
         // Arrange
@@ -279,19 +249,11 @@ class CurrencyFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Currency\Business\CurrencyFacadeInterface
-     */
     protected function createCurrencyFacade(): CurrencyFacadeInterface
     {
         return new CurrencyFacade();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteValidationResponseTransfer
-     */
     protected function getQuoteValidationResponseTransfer(QuoteTransfer $quoteTransfer): QuoteValidationResponseTransfer
     {
         return $this->tester->getFacade()->validateCurrencyInQuote($quoteTransfer);

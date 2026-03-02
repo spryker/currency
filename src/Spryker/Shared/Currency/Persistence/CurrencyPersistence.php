@@ -26,29 +26,17 @@ class CurrencyPersistence implements CurrencyPersistenceInterface
      */
     protected $defaultIsoCode;
 
-    /**
-     * @param \Spryker\Shared\Currency\Dependency\Client\CurrencyToSessionInterface $sessionClient
-     * @param string $defaultIsoCode
-     */
     public function __construct(CurrencyToSessionInterface $sessionClient, string $defaultIsoCode)
     {
         $this->sessionClient = $sessionClient;
         $this->defaultIsoCode = $defaultIsoCode;
     }
 
-    /**
-     * @param string $currencyIsoCode
-     *
-     * @return void
-     */
     public function setCurrentCurrencyIsoCode(string $currencyIsoCode): void
     {
         $this->sessionClient->set(static::CURRENT_CURRENCY_ISO_CODE, $currencyIsoCode);
     }
 
-    /**
-     * @return string
-     */
     public function getCurrentCurrencyIsoCode(): string
     {
         $currentCurrencyIsoCode = $this->sessionClient->get(static::CURRENT_CURRENCY_ISO_CODE);

@@ -33,9 +33,6 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
  */
 class CurrencyBusinessFactory extends AbstractBusinessFactory
 {
-    /**
-     * @return \Spryker\Shared\Currency\Builder\CurrencyBuilderInterface
-     */
     public function createCurrencyBuilder(): CurrencyBuilderInterface
     {
         return new CurrencyBuilder(
@@ -45,9 +42,6 @@ class CurrencyBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Currency\Business\Reader\CurrencyReaderInterface
-     */
     public function createCurrencyReader(): CurrencyReaderInterface
     {
         return new CurrencyReader(
@@ -56,25 +50,16 @@ class CurrencyBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Currency\Business\Reader\CurrencyBulkReaderInterface
-     */
     public function createCurrencyBulkReader(): CurrencyBulkReaderInterface
     {
         return new CurrencyBulkReader($this->getRepository());
     }
 
-    /**
-     * @return \Spryker\Zed\Currency\Business\Validator\QuoteValidatorInterface
-     */
     public function createQuoteValidator(): QuoteValidatorInterface
     {
         return new QuoteValidator($this->getStoreFacade());
     }
 
-    /**
-     * @return \Spryker\Zed\Currency\Business\Writer\CurrencyStoreWriterInterface
-     */
     public function createCurrencyStoreWriter(): CurrencyStoreWriterInterface
     {
         return new CurrencyStoreWriter(
@@ -83,41 +68,26 @@ class CurrencyBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Currency\Business\Expander\StoreExpanderInterface
-     */
     public function createStoreExpander(): StoreExpanderInterface
     {
         return new StoreExpander($this->getRepository());
     }
 
-    /**
-     * @return \Spryker\Zed\Currency\Dependency\Facade\CurrencyToStoreFacadeInterface
-     */
     public function getStoreFacade(): CurrencyToStoreFacadeInterface
     {
         return $this->getProvidedDependency(CurrencyDependencyProvider::FACADE_STORE);
     }
 
-    /**
-     * @return \Spryker\Shared\Currency\Dependency\Internationalization\CurrencyToInternationalizationInterface
-     */
     public function getInternationalization(): CurrencyToInternationalizationInterface
     {
         return $this->getProvidedDependency(CurrencyDependencyProvider::INTERNATIONALIZATION);
     }
 
-    /**
-     * @return string
-     */
     public function getCurrentCurrencyCode(): string
     {
         return $this->getProvidedDependency(CurrencyDependencyProvider::CURRENCY_CURRENT);
     }
 
-    /**
-     * @return \Spryker\Zed\Currency\Business\Validator\StoreCurrencyValidatorInterface
-     */
     public function createStoreCurrencyValidator(): StoreCurrencyValidatorInterface
     {
         return new StoreCurrencyValidator();

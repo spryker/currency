@@ -16,9 +16,6 @@ class StoreExpander implements StoreExpanderInterface
      */
     protected CurrencyRepositoryInterface $currencyRepository;
 
-    /**
-     * @param \Spryker\Zed\Currency\Persistence\CurrencyRepositoryInterface $currencyRepository
-     */
     public function __construct(CurrencyRepositoryInterface $currencyRepository)
     {
         $this->currencyRepository = $currencyRepository;

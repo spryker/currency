@@ -33,10 +33,6 @@ class CurrencyStoreWriter implements CurrencyStoreWriterInterface
      */
     protected CurrencyEntityManagerInterface $entityManager;
 
-    /**
-     * @param \Spryker\Zed\Currency\Persistence\CurrencyRepositoryInterface $currencyRepository
-     * @param \Spryker\Zed\Currency\Persistence\CurrencyEntityManagerInterface $entityManager
-     */
     public function __construct(
         CurrencyRepositoryInterface $currencyRepository,
         CurrencyEntityManagerInterface $entityManager
@@ -45,11 +41,6 @@ class CurrencyStoreWriter implements CurrencyStoreWriterInterface
         $this->entityManager = $entityManager;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return \Generated\Shared\Transfer\StoreResponseTransfer
-     */
     public function updateStoreCurrencies(StoreTransfer $storeTransfer): StoreResponseTransfer
     {
         return $this->getTransactionHandler()->handleTransaction(function () use ($storeTransfer) {
@@ -57,11 +48,6 @@ class CurrencyStoreWriter implements CurrencyStoreWriterInterface
         });
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return \Generated\Shared\Transfer\StoreResponseTransfer
-     */
     protected function executeUpdateStoreCurrenciesTransaction(StoreTransfer $storeTransfer): StoreResponseTransfer
     {
         $storeResponseTransfer = new StoreResponseTransfer();
@@ -89,11 +75,6 @@ class CurrencyStoreWriter implements CurrencyStoreWriterInterface
         return $this->getSuccessfulResponse($storeTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return \Generated\Shared\Transfer\StoreResponseTransfer
-     */
     protected function getSuccessfulResponse(StoreTransfer $storeTransfer): StoreResponseTransfer
     {
         return (new StoreResponseTransfer())

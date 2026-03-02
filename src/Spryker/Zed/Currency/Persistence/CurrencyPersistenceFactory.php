@@ -29,9 +29,6 @@ class CurrencyPersistenceFactory extends AbstractPersistenceFactory
         return SpyCurrencyQuery::create();
     }
 
-    /**
-     * @return \Spryker\Zed\Currency\Persistence\CurrencyMapper
-     */
     public function createCurrencyMapper(): CurrencyMapper
     {
         return new CurrencyMapper($this->getInternationalization());
@@ -45,17 +42,11 @@ class CurrencyPersistenceFactory extends AbstractPersistenceFactory
         return SpyCurrencyStoreQuery::create();
     }
 
-    /**
-     * @return \Orm\Zed\Store\Persistence\SpyStoreQuery
-     */
     public function getStorePropelQuery(): SpyStoreQuery
     {
         return $this->getProvidedDependency(CurrencyDependencyProvider::PROPEL_QUERY_STORE);
     }
 
-    /**
-     * @return \Spryker\Shared\Currency\Dependency\Internationalization\CurrencyToInternationalizationInterface
-     */
     protected function getInternationalization(): CurrencyToInternationalizationInterface
     {
         return $this->getProvidedDependency(CurrencyDependencyProvider::INTERNATIONALIZATION);

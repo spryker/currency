@@ -22,17 +22,11 @@ class CurrencyToZedRequestClientBridge implements CurrencyToZedRequestClientInte
         $this->zedRequestClient = $zedRequestClient;
     }
 
-    /**
-     * @return void
-     */
     public function addFlashMessagesFromLastZedRequest(): void
     {
         $this->zedRequestClient->addFlashMessagesFromLastZedRequest();
     }
 
-    /**
-     * @return void
-     */
     public function addResponseMessagesToMessenger(): void
     {
         $this->zedRequestClient->addResponseMessagesToMessenger();

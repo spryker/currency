@@ -9,15 +9,7 @@ namespace Spryker\Shared\Currency\Persistence;
 
 interface CurrencyPersistenceInterface
 {
-    /**
-     * @param string $currencyIsoCode
-     *
-     * @return void
-     */
     public function setCurrentCurrencyIsoCode(string $currencyIsoCode): void;
 
-    /**
-     * @return string
-     */
     public function getCurrentCurrencyIsoCode(): string;
 }

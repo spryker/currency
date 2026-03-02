@@ -13,11 +13,6 @@ use Generated\Shared\Transfer\CurrencyTransfer;
 
 interface CurrencyRepositoryInterface
 {
-    /**
-     * @param string $isoCode
-     *
-     * @return \Generated\Shared\Transfer\CurrencyTransfer|null
-     */
     public function findCurrencyByIsoCode(string $isoCode): ?CurrencyTransfer;
 
     /**
@@ -42,11 +37,6 @@ interface CurrencyRepositoryInterface
      */
     public function getCurrencyCodesGroupedByIdStore(array $storeIds): array;
 
-    /**
-     * @param int $id
-     *
-     * @return \Generated\Shared\Transfer\CurrencyTransfer|null
-     */
     public function findCurrencyById(int $id): ?CurrencyTransfer;
 
     /**
@@ -56,10 +46,5 @@ interface CurrencyRepositoryInterface
      */
     public function getStoreDefaultCurrencyCodes(array $storeIds): array;
 
-    /**
-     * @param \Generated\Shared\Transfer\CurrencyCriteriaTransfer $currencyCriteriaTransfer
-     *
-     * @return \Generated\Shared\Transfer\CurrencyCollectionTransfer
-     */
     public function getCurrencyCollection(CurrencyCriteriaTransfer $currencyCriteriaTransfer): CurrencyCollectionTransfer;
 }

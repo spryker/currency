@@ -34,18 +34,12 @@ class CurrencyBuilderTest extends Unit
      */
     public const CURRENT_CURRENCY = 'USD';
 
-    /**
-     * @return void
-     */
     public function testConstruct(): void
     {
         $currencyBuilder = $this->getCurrencyBuilder();
         $this->assertInstanceOf(CurrencyBuilderInterface::class, $currencyBuilder);
     }
 
-    /**
-     * @return void
-     */
     public function testFromIsoCodeShouldReturnCurrencyTransfer(): void
     {
         $currencyBuilder = $this->getCurrencyBuilder();
@@ -54,9 +48,6 @@ class CurrencyBuilderTest extends Unit
         $this->assertSame(static::DEFAULT_CURRENCY, $currencyTransfer->getCode());
     }
 
-    /**
-     * @return \Spryker\Shared\Currency\Builder\CurrencyBuilderInterface
-     */
     protected function getCurrencyBuilder(): CurrencyBuilderInterface
     {
         $currencyRepository = new CurrencyToInternationalizationBridge();

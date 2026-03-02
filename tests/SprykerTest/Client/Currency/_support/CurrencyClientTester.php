@@ -47,9 +47,6 @@ class CurrencyClientTester extends Actor
      */
     public const DEFAULT_STORE = 'DE';
 
-    /**
-     * @return void
-     */
     public function mockStoreClientDependency(): void
     {
         $currencyToStoreClientMock = Stub::makeEmpty(CurrencyToStoreClientInterface::class);
@@ -64,9 +61,6 @@ class CurrencyClientTester extends Actor
         $this->setDependency(CurrencyDependencyProvider::CLIENT_STORE, $currencyToStoreClientMock);
     }
 
-    /**
-     * @return \Spryker\Client\Currency\CurrencyClientInterface
-     */
     public function getCurrencyClient(): CurrencyClientInterface
     {
         return $this->getLocator()->currency()->client();

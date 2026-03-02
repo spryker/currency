@@ -32,11 +32,6 @@ class CurrencyDependencyProvider extends AbstractBundleDependencyProvider
      */
     public const CLIENT_SESSION = 'CLIENT_SESSION';
 
-    /**
-     * @param \Spryker\Yves\Kernel\Container $container
-     *
-     * @return \Spryker\Yves\Kernel\Container
-     */
     public function provideDependencies(Container $container): Container
     {
         $container = $this->addStore($container);
@@ -62,11 +57,6 @@ class CurrencyDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Yves\Kernel\Container $container
-     *
-     * @return \Spryker\Yves\Kernel\Container
-     */
     protected function addInternationalization(Container $container): Container
     {
         $container->set(static::INTERNATIONALIZATION, function () {
@@ -76,11 +66,6 @@ class CurrencyDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Yves\Kernel\Container $container
-     *
-     * @return \Spryker\Yves\Kernel\Container
-     */
     protected function addSessionClient(Container $container): Container
     {
         $container->set(static::CLIENT_SESSION, function (Container $container) {

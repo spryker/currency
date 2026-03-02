@@ -9,13 +9,7 @@ namespace Spryker\Client\Currency\Dependency\Client;
 
 interface CurrencyToZedRequestClientInterface
 {
-    /**
-     * @return void
-     */
     public function addFlashMessagesFromLastZedRequest(): void;
 
-    /**
-     * @return void
-     */
     public function addResponseMessagesToMessenger(): void;
 }

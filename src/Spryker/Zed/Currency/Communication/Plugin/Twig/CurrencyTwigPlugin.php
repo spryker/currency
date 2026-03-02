@@ -48,9 +48,6 @@ class CurrencyTwigPlugin extends AbstractPlugin implements TwigPluginInterface
         return $twig;
     }
 
-    /**
-     * @return \Twig\TwigFunction
-     */
     protected function getCurrencySymbolFunction(): TwigFunction
     {
         return new TwigFunction(static::CURRENCY_SYMBOL_FUNCTION_NAME, function (?string $isoCode = null) {
@@ -58,11 +55,6 @@ class CurrencyTwigPlugin extends AbstractPlugin implements TwigPluginInterface
         });
     }
 
-    /**
-     * @param string|null $isoCode
-     *
-     * @return string
-     */
     protected function getCurrencySymbol(?string $isoCode = null): string
     {
         $currencyTransfer = $this->getCurrencyTransfer($isoCode);
@@ -73,11 +65,6 @@ class CurrencyTwigPlugin extends AbstractPlugin implements TwigPluginInterface
         return static::NO_SYMBOL_FOUND;
     }
 
-    /**
-     * @param string|null $isoCode
-     *
-     * @return \Generated\Shared\Transfer\CurrencyTransfer
-     */
     protected function getCurrencyTransfer(?string $isoCode = null): CurrencyTransfer
     {
         if ($isoCode !== null) {

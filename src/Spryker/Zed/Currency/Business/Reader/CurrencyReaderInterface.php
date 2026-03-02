@@ -33,11 +33,6 @@ interface CurrencyReaderInterface
      */
     public function getAllStoresWithCurrencies(): array;
 
-    /**
-     * @param int $idStore
-     *
-     * @return \Generated\Shared\Transfer\StoreWithCurrencyTransfer
-     */
     public function getStoreWithCurrenciesByIdStore(int $idStore): StoreWithCurrencyTransfer;
 
     /**
