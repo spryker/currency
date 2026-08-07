@@ -179,8 +179,9 @@ class CurrencyFacade extends AbstractFacade implements CurrencyFacadeInterface
      */
     public function findCurrencyByIsoCode(string $isoCode): ?CurrencyTransfer
     {
-        return $this->getRepository()
-            ->findCurrencyByIsoCode($isoCode);
+        return $this->getFactory()
+            ->createCurrencyReader()
+            ->findByIsoCode($isoCode);
     }
 
     /**

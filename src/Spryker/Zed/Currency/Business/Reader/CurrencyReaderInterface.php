@@ -44,6 +44,8 @@ interface CurrencyReaderInterface
      */
     public function getByIsoCode(string $isoCode): CurrencyTransfer;
 
+    public function findByIsoCode(string $isoCode): ?CurrencyTransfer;
+
     /**
      * @throws \Spryker\Zed\Currency\Business\Model\Exception\CurrencyNotFoundException
      *

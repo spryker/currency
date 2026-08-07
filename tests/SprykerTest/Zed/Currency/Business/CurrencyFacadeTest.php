@@ -249,6 +249,24 @@ class CurrencyFacadeTest extends Unit
         );
     }
 
+    public function testGetAllStoresWithCurrenciesReturnsOnlyCurrenciesAvailableInEachStore(): void
+    {
+        // Act
+        $storeWithCurrencyTransfers = $this->createCurrencyFacade()->getAllStoresWithCurrencies();
+
+        // Assert
+        $this->assertNotEmpty($storeWithCurrencyTransfers);
+
+        foreach ($storeWithCurrencyTransfers as $storeWithCurrencyTransfer) {
+            $availableCurrencyIsoCodes = $storeWithCurrencyTransfer->getStoreOrFail()->getAvailableCurrencyIsoCodes();
+
+            $this->assertNotEmpty($storeWithCurrencyTransfer->getCurrencies());
+            foreach ($storeWithCurrencyTransfer->getCurrencies() as $currencyTransfer) {
+                $this->assertContains($currencyTransfer->getCodeOrFail(), $availableCurrencyIsoCodes);
+            }
+        }
+    }
+
     protected function createCurrencyFacade(): CurrencyFacadeInterface
     {
         return new CurrencyFacade();

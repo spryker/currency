@@ -78,12 +78,27 @@ class CurrencyReader implements CurrencyReaderInterface
      */
     public function getAllStoresWithCurrencies(): array
     {
-        $currenciesPerStore = [];
+        $storeTransfers = [];
+        $currencyIsoCodes = [];
         foreach ($this->storeFacade->getAllStores() as $storeTransfer) {
             if ($storeTransfer->getAvailableCurrencyIsoCodes() === []) {
                 continue;
             }
-            $currenciesPerStore[] = $this->mapStoreCurrency($storeTransfer);
+            $storeTransfers[] = $storeTransfer;
+            $currencyIsoCodes = array_merge($currencyIsoCodes, $storeTransfer->getAvailableCurrencyIsoCodes());
+        }
+
+        if ($storeTransfers === []) {
+            return [];
+        }
+
+        $currencyTransfers = $this->currencyRepository->getCurrencyTransfersByIsoCodes(
+            array_values(array_unique($currencyIsoCodes)),
+        );
+
+        $currenciesPerStore = [];
+        foreach ($storeTransfers as $storeTransfer) {
+            $currenciesPerStore[] = $this->createStoreWithCurrencyTransfer($storeTransfer, $currencyTransfers);
         }
 
         return $currenciesPerStore;
@@ -105,6 +120,19 @@ class CurrencyReader implements CurrencyReaderInterface
      */
     public function getByIsoCode(string $isoCode): CurrencyTransfer
     {
+        $currencyTransfer = $this->findByIsoCode($isoCode);
+
+        if ($currencyTransfer === null) {
+            throw new CurrencyNotFoundException(
+                sprintf('Currency with ISO code "%s" not found.', $isoCode),
+            );
+        }
+
+        return $currencyTransfer;
+    }
+
+    public function findByIsoCode(string $isoCode): ?CurrencyTransfer
+    {
         if (isset(static::$currencyCache[$isoCode])) {
             return static::$currencyCache[$isoCode];
         }
@@ -112,9 +140,7 @@ class CurrencyReader implements CurrencyReaderInterface
         $currencyTransfer = $this->currencyRepository->findCurrencyByIsoCode($isoCode);
 
         if ($currencyTransfer === null) {
-            throw new CurrencyNotFoundException(
-                sprintf('Currency with ISO code "%s" not found.', $isoCode),
-            );
+            return null;
         }
 
         static::$currencyCache[$isoCode] = $currencyTransfer;
@@ -141,15 +167,46 @@ class CurrencyReader implements CurrencyReaderInterface
     {
         $currencyTransfers = $this->currencyRepository->getCurrencyTransfersByIsoCodes($storeTransfer->getAvailableCurrencyIsoCodes());
         if ($currencyTransfers === []) {
-            throw new CurrencyNotFoundException(
-                sprintf(
-                    "There is no currency configured for current store,
-                    make sure you have currency ISO codes provided in 'currencyIsoCodes' array in current stores.php config.",
-                ),
-            );
+            throw $this->createCurrencyNotFoundException();
         }
 
         return $currencyTransfers;
+    }
+
+    /**
+     * @param array<\Generated\Shared\Transfer\CurrencyTransfer> $currencyTransfers
+     *
+     * @throws \Spryker\Zed\Currency\Business\Model\Exception\CurrencyNotFoundException
+     *
+     * @return \Generated\Shared\Transfer\StoreWithCurrencyTransfer
+     */
+    protected function createStoreWithCurrencyTransfer(
+        StoreTransfer $storeTransfer,
+        array $currencyTransfers
+    ): StoreWithCurrencyTransfer {
+        $currencyIsoCodes = $storeTransfer->getAvailableCurrencyIsoCodes();
+        $storeCurrencyTransfers = array_values(array_filter(
+            $currencyTransfers,
+            static function (CurrencyTransfer $currencyTransfer) use ($currencyIsoCodes): bool {
+                return in_array($currencyTransfer->getCode(), $currencyIsoCodes, true);
+            },
+        ));
+
+        if ($storeCurrencyTransfers === []) {
+            throw $this->createCurrencyNotFoundException();
+        }
+
+        return (new StoreWithCurrencyTransfer())
+            ->setStore($storeTransfer)
+            ->setCurrencies(new ArrayObject($storeCurrencyTransfers));
+    }
+
+    protected function createCurrencyNotFoundException(): CurrencyNotFoundException
+    {
+        return new CurrencyNotFoundException(
+            "There is no currency configured for current store,
+                    make sure you have currency ISO codes provided in 'currencyIsoCodes' array in current stores.php config.",
+        );
     }
 
     protected function mapStoreCurrency(StoreTransfer $storeTransfer): StoreWithCurrencyTransfer
