@@ -13,6 +13,11 @@ use Spryker\Shared\Currency\Dependency\Internationalization\CurrencyToInternatio
 class CurrencyBuilder implements CurrencyBuilderInterface
 {
     /**
+     * @var array<string, \Generated\Shared\Transfer\CurrencyTransfer>
+     */
+    protected static array $currencyTransfersCache = [];
+
+    /**
      * @var \Spryker\Shared\Currency\Dependency\Internationalization\CurrencyToInternationalizationInterface
      */
     protected $currencyRepository;
@@ -39,14 +44,25 @@ class CurrencyBuilder implements CurrencyBuilderInterface
 
     public function fromIsoCode(string $isoCode): CurrencyTransfer
     {
-        $currencyTransfer = new CurrencyTransfer();
-        $currencyTransfer->setCode($isoCode);
-        $currencyTransfer->setName($this->currencyRepository->getNameByIsoCode($isoCode));
-        $currencyTransfer->setSymbol($this->currencyRepository->getSymbolByIsoCode($isoCode));
-        $currencyTransfer->setIsDefault($isoCode === $this->defaultIsoCode);
-        $currencyTransfer->setFractionDigits($this->currencyRepository->getFractionDigits($isoCode));
+        $cacheKey = $this->getCacheKey($isoCode);
 
-        return $currencyTransfer;
+        if (!isset(static::$currencyTransfersCache[$cacheKey])) {
+            $currencyTransfer = new CurrencyTransfer();
+            $currencyTransfer->setCode($isoCode);
+            $currencyTransfer->setName($this->currencyRepository->getNameByIsoCode($isoCode));
+            $currencyTransfer->setSymbol($this->currencyRepository->getSymbolByIsoCode($isoCode));
+            $currencyTransfer->setIsDefault($isoCode === $this->defaultIsoCode);
+            $currencyTransfer->setFractionDigits($this->currencyRepository->getFractionDigits($isoCode));
+
+            static::$currencyTransfersCache[$cacheKey] = $currencyTransfer;
+        }
+
+        return clone static::$currencyTransfersCache[$cacheKey];
+    }
+
+    protected function getCacheKey(string $isoCode): string
+    {
+        return $isoCode . ':' . $this->defaultIsoCode;
     }
 
     public function getCurrent(): CurrencyTransfer

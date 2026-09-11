@@ -48,6 +48,30 @@ class CurrencyBuilderTest extends Unit
         $this->assertSame(static::DEFAULT_CURRENCY, $currencyTransfer->getCode());
     }
 
+    public function testFromIsoCodeReturnsFreshCloneOnEachCallSoCallersCannotMutateTheCache(): void
+    {
+        $currencyBuilder = $this->getCurrencyBuilder();
+
+        $firstCurrencyTransfer = $currencyBuilder->fromIsoCode(static::CURRENT_CURRENCY);
+        $firstCurrencyTransfer->setName('mutated');
+
+        $secondCurrencyTransfer = $currencyBuilder->fromIsoCode(static::CURRENT_CURRENCY);
+
+        $this->assertNotSame($firstCurrencyTransfer, $secondCurrencyTransfer);
+        $this->assertNotSame('mutated', $secondCurrencyTransfer->getName());
+    }
+
+    public function testFromIsoCodeReturnsEqualDataForCachedAndUncachedCalls(): void
+    {
+        $currencyBuilder = $this->getCurrencyBuilder();
+
+        $uncachedCurrencyTransfer = $currencyBuilder->fromIsoCode(static::DEFAULT_CURRENCY);
+        $cachedCurrencyTransfer = $currencyBuilder->fromIsoCode(static::DEFAULT_CURRENCY);
+
+        $this->assertEquals($uncachedCurrencyTransfer, $cachedCurrencyTransfer);
+        $this->assertTrue($cachedCurrencyTransfer->getIsDefault());
+    }
+
     protected function getCurrencyBuilder(): CurrencyBuilderInterface
     {
         $currencyRepository = new CurrencyToInternationalizationBridge();
