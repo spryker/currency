@@ -1,0 +1,5 @@
+"At least one currency ISO code is required","At least one currency ISO code is required"
+"Available currency ISO codes must be an array","Available currency ISO codes must be an array"
+"Currency code must be exactly three uppercase letters (ISO 4217 format)","Currency code must be exactly three uppercase letters (ISO 4217 format)"
+"Each currency code must be exactly three uppercase letters (ISO 4217 format)","Each currency code must be exactly three uppercase letters (ISO 4217 format)"
+"The three letter ISO code of the default currency","The three letter ISO code of the default currency"
